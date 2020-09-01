@@ -46583,22 +46583,23 @@ $('#chat-text').keypress(function (e) {
     e.preventDefault();
     var body = $(this).val();
     var url = $(this).data('url');
+    var userName = $('meta[name=user-name]').attr('content');
+    $(this).val('');
     var data = {
       '_token': $('meta[name=csrf-token]').attr('content'),
       body: body
     };
+    $('#chat').append("<div class=\"mt-4 w-50 text-white p-3 rounded float-right bg-primary\"><p>".concat(userName, "</p><p>").concat(body, "</p></div> <div class=\"clearfix\"></div>"));
     $.ajax({
       url: url,
       method: 'post',
       data: data
     });
-    var userName = $('meta[name=user-name]').attr('content');
-    $(this).val('');
-    $('#chat').append("<div class=\"mt-4 w-50 text-white p-3 rounded float-right bg-primary\"><p>".concat(userName, "</p><p>").concat(body, "</p></div> <div class=\"clearfix\"></div>"));
   }
 });
-window.Echo.channel('chat-group').listen('MessageDelivered', function (e) {
-  $('#chat').append("  <div class=\"mt-4 w-50 text-white p-3 rounded float-left bg-warning }}\">\n\n                     <p>".concat(e.message.body, "</p>\n                 </div>\n                 <div class=\"clearfix\"></div>"));
+window.Echo.channel('laravel_database_chat-group').listen('MessageDelivered', function (e) {
+  console.log(e);
+  $('#chat').append("  <div class=\"mt-4 w-50 text-white p-3 rounded float-left bg-warning }}\">\n                     <p>".concat(e.message.user.name, "</p>\n                     <p>").concat(e.message.body, "</p>\n                 </div>\n                 <div class=\"clearfix\"></div>"));
 });
 
 /***/ }),

@@ -22,6 +22,6 @@ class MessageController extends Controller
     public function store(Request $request)
     {
          $message =auth()->user()->messages()->create($request->all());
-        broadcast(new MessageDelivered($message->load('user')))->toOthers();
+         broadcast(new MessageDelivered($message->load('user')))->toOthers();
     }
 }

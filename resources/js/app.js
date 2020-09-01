@@ -66,21 +66,19 @@ $('#chat-text').keypress(function(e){
             method:'post',
             data:data
         })
-
     }
 
-
 });
-window.Echo.channel('chat-group')
+window.Echo.channel('laravel_database_chat-group')
 
     .listen('MessageDelivered',(e) => {
-        console.log(e);
-         $('#chat').append(`  <div class="mt-4 w-50 text-white p-3 rounded float-left bg-warning }}">
 
+         $('#chat').append(`  <div class="mt-4 w-50 text-white p-3 rounded float-left bg-secondary }}">
+                     <p style="color:#333333;" >${e.message.user.name}</p>
                      <p>${e.message.body}</p>
                  </div>
                  <div class="clearfix"></div>`
 
-         );
+         )
 
     });
